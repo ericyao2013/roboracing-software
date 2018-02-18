@@ -11,12 +11,12 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://rr_description/meshes/car.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni.dae"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://rr_description/meshes/car.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni.dae"/>
             </geometry>
         </collision>
     </link>
@@ -41,12 +41,12 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </collision>
     </link>
@@ -66,12 +66,12 @@
         <visual>
             <origin rpy="0 0 3.14" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </collision>
     </link>
@@ -98,12 +98,12 @@
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </collision>
     </link>
@@ -129,12 +129,12 @@
         <visual>
             <origin rpy="0 0 3.14" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://rr_description/meshes/wheel.dae"/>
+                <mesh filename="package://rr_description/meshes/Macaroni-wheel.dae"/>
             </geometry>
         </collision>
     </link>
@@ -147,35 +147,6 @@
 
 
     <!--Sensor Links-->
-
-    <link name="laser"/>
-    <gazebo reference="laser">
-        <sensor type="ray" name="lidar">
-            <visualize>false</visualize>
-            <update_rate>15</update_rate>
-            <ray>
-                <scan>
-                    <horizontal>
-                        <samples>270</samples>
-                        <resolution>1</resolution>
-                        <min_angle>-2.35619</min_angle>
-                        <max_angle>2.35619</max_angle>
-                    </horizontal>
-                </scan>
-                <range>
-                    <min>0.05</min>
-                    <max>8.00</max>
-                    <resolution>0.02</resolution>
-                </range>
-            </ray>
-            <plugin name="lidar_plugin" filename="libgazebo_ros_laser.so">
-                <robotNamespace>/</robotNamespace>
-                <topicName>/scan</topicName>
-                <frameName>/laser</frameName>
-            </plugin>
-        </sensor>
-    </gazebo>
-
 
     <link name="imu"/>
     <gazebo reference="imu">
@@ -214,12 +185,12 @@
         </inertial>
     </link>
     <gazebo reference="camera">
-        <sensor name="camera_sensor" type="depth">
+        <sensor name="camera_sensor" type="camera">
             <camera>
                 <horizontal_fov>1.02974<!-- 59 deg in rad --></horizontal_fov>
                 <image>
-                    <width>320</width>
-                    <height>240</height>
+                    <width>640</width>
+                    <height>480</height>
                     <format>R8G8B8</format>
                 </image>
                 <clip>
@@ -230,29 +201,20 @@
             <always_on>true</always_on>
             <update_rate>30</update_rate>
             <visualize>false</visualize>
-            <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+            <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
                 <robotNamespace>/</robotNamespace>
-                <baseline>0.1</baseline>
                 <alwaysOn>true</alwaysOn>
                 <updateRate>30.0</updateRate>
                 <cameraName>camera</cameraName>
                 <imageTopicName>image_raw</imageTopicName>
                 <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-                <depthImageTopicName>depth/image_raw</depthImageTopicName>
-                <depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
-                <pointCloudTopicName>depth/points</pointCloudTopicName>
-                <frameName>camera_optical</frameName>
-                <pointCloudCutoff>0.4</pointCloudCutoff>
-                <distortionK1>0.00000001</distortionK1>
-                <distortionK2>0.00000001</distortionK2>
-                <distortionK3>0.00000001</distortionK3>
-                <distortionT1>0.00000001</distortionT1>
-                <distortionT2>0.00000001</distortionT2>
-                <CxPrime>0</CxPrime>
-                <Cx>0</Cx>
-                <Cy>0</Cy>
-                <focalLength>0</focalLength>
-                <!--<hackBaseline>0</hackBaseline>-->
+                <frameName>camera_link</frameName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
             </plugin>
         </sensor>
     </gazebo>
@@ -327,7 +289,7 @@
     <joint name="cam_chassis_height" type="fixed">
         <parent link="chassis"/>
         <child link="camera_base"/>
-        <origin xyz="0.21793 0 0.22" rpy="0 0 0"/>
+        <origin xyz="0.27251 0 0.18245" rpy="0 0 0"/>
     </joint>
 
     <joint name="camera_tilt" type="fixed">
@@ -342,12 +304,6 @@
         <parent link="camera"/>
         <child link="camera_optical"/>
         <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
-    </joint>
-
-    <joint name="lidar_joint" type="fixed">
-        <parent link="chassis"/>
-        <child link="laser"/>
-        <origin xyz="0.275 0 0.110" rpy="0 0 0"/>
     </joint>
 
     <joint name="imu" type="fixed">
