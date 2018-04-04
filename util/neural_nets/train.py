@@ -15,7 +15,7 @@ from params import input_shape
 
 n_examples_to_load = 8000 # if the number of training examples is below this, load more data
 batch_size = 32
-epochs = 20
+epochs = 5
 categories = [-0.2, -0.05, 0, 0.05, 0.2]
 
 
